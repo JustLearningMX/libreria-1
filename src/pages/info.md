@@ -1,0 +1,1 @@
+### Para hacer la aplicación de tipo SPA
