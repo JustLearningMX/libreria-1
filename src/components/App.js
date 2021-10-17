@@ -1,27 +1,15 @@
-import { useState } from 'react'
-import Autores from "./Autores";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+import { Main } from "./Main";
 
-function App() {
-  const [isAdd, setIsAdd] = useState(false)
-  const [textAddUpdate, setTextAddUpdate] = useState('Agregar autores')
-
-  const handleAddAutor = (event) => {
-    setIsAdd(!isAdd)
-    if(isAdd){
-      setTextAddUpdate('Agregar autores')
-    }else{
-      setTextAddUpdate('Ocultar agregar autores')
-    }
-  }
-
+function App() {  
 
   return (
     <div className="App">
-
-      <button onClick={handleAddAutor}>{textAddUpdate}</button>
-      { isAdd && <Autores/>} 
+      <Header />
+      <Main />
+      <Footer />
     </div>
   );
 }
-
 export default App;
