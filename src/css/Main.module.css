@@ -1,14 +1,15 @@
 .main{
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #45567d;    
+    background-color: #45567d;
+    /* margin-top: 80px; */
 }
 
 .button_ {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     display: block;
     width: 250px;
     padding: 0.75rem;

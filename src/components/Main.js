@@ -3,7 +3,6 @@ import { useState } from "react";
 import Autores from './Autores';
 import Comentarios from './Comentarios';
 
-
 export function Main() {
   const [isAdd, setIsAdd] = useState(false);
   const [isAddC, setIsAddC] = useState(false);

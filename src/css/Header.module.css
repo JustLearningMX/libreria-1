@@ -6,19 +6,22 @@
   width: 100%;
   z-index: 9;
   height: 80px;
-  /* display: flex;
-  justify-content: center; */
 }
 
 .navbar {
   display: grid;
-  grid-template-columns: 0.3fr 1.2fr 2.5fr;
+  grid-template-columns: 1fr 1.7fr; 
   height: 100%;
-  margin: 0 200px;
+  margin: 0 6.5rem;
+}
+
+.empresaContainer{
+  display: flex;
+  justify-content: center;
+  height: 100%;
 }
 
 .logoHeader {
-  /* background-color: green; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +37,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 700;
   -webkit-text-stroke-color: #000;
   -webkit-text-stroke-width: 1.2px;
@@ -48,7 +51,6 @@
   /*Opciones del menú*/
    display: grid;
    grid-template-columns: repeat(5, 120px);
-  /* justify-content: center;  */
 }
 
 .menuItems {
@@ -57,7 +59,7 @@
   list-style: none;
   text-align: center;
   color: white;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 100;
 }
 

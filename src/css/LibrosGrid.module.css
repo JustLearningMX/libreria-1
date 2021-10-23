@@ -1,0 +1,9 @@
+/* Estilos para el componente que dibuja una grid de tarjetas de libros */
+.librosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 2rem;
+  padding: 4rem 3rem;
+  background-color: #45567d;
+  margin-top: 80px;
+}
