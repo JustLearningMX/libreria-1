@@ -1,0 +1,22 @@
+/* CSS PARA EL COMPONENTE SPINNER */
+.spinner{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #45567d;
+    color: aliceblue;
+    line-height: 2.5rem;
+}
+
+.spinning{
+    animation: spinner 1s linear infinite;
+}
+
+/*Animación*/
+@keyframes spinner{
+    to {
+        transform: rotate(360deg);
+    }
+}

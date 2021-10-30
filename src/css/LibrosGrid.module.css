@@ -1,9 +1,49 @@
 /* Estilos para el componente que dibuja una grid de tarjetas de libros */
+
+.librosGridContainer{
+  background-color: #45567d;
+  padding-bottom: 80px;
+}
+
 .librosGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /*210px, 1fr*/
+  /* grid-auto-rows: 450px; */
   gap: 2rem;
-  padding: 4rem 3rem;
-  background-color: #45567d;
-  margin-top: 80px;
+  padding: 4rem;
+  margin-top: 60px;
+}
+
+/* SECCIÓN DE LA PAGINACIÓN */
+
+.paginationContainer{
+  display: flex;
+  justify-content: center;
+}
+
+.paginationItems{
+  list-style: none;
+  padding: 10px;
+  margin: 0 3px;
+  background: #303841;
+
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+}
+
+.paginationButton{
+  color: white;
+  border: none;
+  background-color: inherit;
+  width: 1rem;
+  cursor: pointer;
+}
+
+.paginationItems:hover {
+  opacity: 0.8;
+}
+
+.paginationItems:hover
+.paginationButton{
+  color: #ff7f50;
 }
