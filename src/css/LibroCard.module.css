@@ -10,18 +10,22 @@
   list-style: none;
 }
 
-.libroCard:hover
-.title {
+.linkCard:hover{
   opacity: 0.8;
+}
+
+.linkCard:hover
+.title {
   color: #ff7f50;
 }
 
 /* imagen */
 .imgGrid {
-  background-color: azure;
+  background-color: aliceblue;
   width: 100%;
-  height: 435px;
-  object-fit: cover;
+  height: 380px;
+  object-fit:cover;
+  object-position:top;
 }
 
 .titleContainer{
@@ -29,13 +33,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .title {
   transition: color 0.3s ease-out;
   color: white;
   height: fit-content;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
   margin: 0 15px;
   text-align: center;
