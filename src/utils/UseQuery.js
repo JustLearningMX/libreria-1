@@ -2,6 +2,6 @@
 //para recuperar parámetros de la URL
 import { useLocation } from "react-router";
 
-export function UseQuery(){
+export function useQuery(){
     return new URLSearchParams(useLocation().search);
   }

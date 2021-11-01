@@ -10,7 +10,7 @@ export function LibroCard({ libro }) {
   //El Link lleva a una página que muestra a detalle un libro
   //El elemento "li" dibuja una tarjeta por cada libro que recibe
   return (
-    <Link className={styles.linkCard} to={"/libros/" + libro._id}>
+    <Link className={styles.linkCard} to={"/libros/id/" + libro._id}>
       <li className={styles.libroCard}>
         <img
           // width={200}
