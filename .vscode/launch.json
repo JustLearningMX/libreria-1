@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "pwa-chrome",
+            "name": "http://localhost:4014/",
+            "request": "launch",
+            "url": "http://localhost:4014/"
+        },
+        {
+            "type": "pwa-chrome",
+            "name": "http://localhost:4014/libros",
+            "request": "launch",
+            "url": "http://localhost:4014/libros"
+        }
+    ]
+}

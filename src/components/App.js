@@ -21,7 +21,7 @@ function App() {
         <Header /> {/**Pinta el encabezado */}
         
         <Switch>
-          <Route exact path="/libros/:libroId"> {/**Ruta que muestra un libro en específico y sus datos */}
+          <Route exact path="/libros/id/:libroId"> {/**Ruta que muestra un libro en específico y sus datos */}
             <LibroDetails />
           </Route>
           <Route exact path="/libros"> {/**Ruta que muestra todos los libros */}

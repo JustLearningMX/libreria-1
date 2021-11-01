@@ -11,11 +11,10 @@
   /* grid-auto-rows: 450px; */
   gap: 2rem;
   padding: 4rem;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 
 /* SECCIÓN DE LA PAGINACIÓN */
-
 .paginationContainer{
   display: flex;
   justify-content: center;
