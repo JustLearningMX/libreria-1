@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router";
 import styles from "../css/LibrosGrid.module.css"; //Modulo de estilos para este componente
-import { useQuery } from "../utils/useQuery";
+import { useQuery } from "../utils/UseQuery";
 import PropTypes from 'prop-types'; //Validación de propiedades
 
 export function Pagination({ itemsPerPage, totalItems, paginated }) {
