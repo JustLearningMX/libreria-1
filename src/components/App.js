@@ -4,6 +4,7 @@ import { Main } from "./Main"; //El landing page de la aplicación
 import { LibrosGrid } from "./Libros/LibrosGrid"; //Todos los libros de la API
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; //Para las rutas de las páginas
 import { LibroDetails } from "./Libros/LibroDetails";
+import { HeaderUi } from "./HeaderUi";
 
 // Punto de entrada de la aplicación
 function App() {
@@ -17,8 +18,8 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <Header /> {/**Pinta el encabezado */}
+      {/* <div className="App"> */}
+        <HeaderUi /> {/**Pinta el encabezado */}
         
         <Switch>
           <Route exact path="/libros/id/:libroId"> {/**Ruta que muestra un libro en específico y sus datos */}
@@ -42,7 +43,7 @@ function App() {
         </Switch>
         
         <Footer /> {/**Pinta el pie de página */}
-      </div>
+      {/* </div> */}
     </Router>
   );
 }

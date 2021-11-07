@@ -3,8 +3,10 @@
 import { Link } from "react-router-dom";
 import styles from "../../css/LibroCard.module.css"; //Estilos para este componente
 import { coverBookIntoLarge } from "../../utils/coverBookIntoLarge";
+import PropTypes from 'prop-types'; //Validación de propiedades
 
 export function LibroCard({ libro }) {
+  //Obtenemos un link nuevo con una imagen de mejor calidad
   const linkCoverBookLarge = coverBookIntoLarge(libro.image_url,"/");
 
   //El Link lleva a una página que muestra a detalle un libro
@@ -25,4 +27,8 @@ export function LibroCard({ libro }) {
       </li>
   </Link>
   );
+}
+
+LibroCard.propTypes = {
+  libro: PropTypes.object.isRequired
 }

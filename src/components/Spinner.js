@@ -2,6 +2,7 @@
 
 import { FaSpinner} from 'react-icons/fa';
 import styles from '../css/Spinner.module.css';
+import PropTypes from 'prop-types'; //Validación de propiedades
 
 export function Spinner({mensaje}) {//Recibe un mensaje
     return(
@@ -11,4 +12,8 @@ export function Spinner({mensaje}) {//Recibe un mensaje
             <FaSpinner className={styles.spinning} size={60}/>
         </div>
     );
+}
+
+Spinner.propTypes = {
+    mensaje: PropTypes.string.isRequired
 }
