@@ -1,16 +1,20 @@
 // COMPONENTE QUE DIBUJA UNA GRID DE TARJETAS DE LIBROS
 
-import { LibroCard } from "./LibroCard"; //Componente que dibuja una tarjeta por cada libro
+import styles from "../../css/LibrosGrid.module.css"; //Modulo de estilos para este componente
 import { useEffect, useState } from "react"; //Para los estados
 import { requestApi } from "../../utils/httpClient"; //Peticiones a la API
-import { Pagination } from "../Pagination"; //Paginación
-import { Spinner } from "../Spinner"; //Muestra un spinner
-import { useQuery } from "../../utils/useQuery";
-import styles from "../../css/LibrosGrid.module.css"; //Modulo de estilos para este componente
-import { Search } from "../Search";
+import { useQuery } from "../../utils/useQuery"; //Hook personalizada para recuperar parámetros de la URL
+
+//Componentes
+import { LibroCard } from "./LibroCard"; //Dibuja una tarjeta por cada libro recuperado de la API
+import { Pagination } from "../Pagination"; //Paginación de todos los libros 10 en 10
+import { Spinner } from "../Spinner"; //Muestra un spinner mientras cargan los datos
+import { Search } from "../Search"; //Barra de búsqueda para los libros
+import { BookNotfound } from "./BookNotFound"; //Muestra mensaje de libros no encontrados
 
 export function LibrosGrid() {
   const [libros, setLibros] = useState([]); //Array de todos los libros de la API
+  const [notFound, setNotFound] = useState([false,[]]); //Estado para libros no encontrados
   const [isLoading, setIsLoading] = useState(true); //Para mostrar un spinner mientras carga de la API
 
   //####Estados para controlar el paginado del resultado JSON###
@@ -21,18 +25,25 @@ export function LibrosGrid() {
   const query = useQuery();
   const search = query.get("search");
 
+  //######Efecto secundario######
   useEffect(() => {
-    setCurrentPage(0);
-    console.log("useEffect");
-    window.scrollTo(0, 0);
-    setIsLoading(true);
+    
+    setCurrentPage(0); //Página inicial en 0
+    window.scrollTo(0, 0); //Parte superior de la página
+    setIsLoading(true); //Está cargando datos
+    setNotFound(false); //Libros no encontrados en falso
     const path = search ? "/libros/titulo/" + search : "/libros/"; //Si hay búsqueda específica o todos los libros de la API
+
+    //Se hace la petición a la API
     requestApi(path, "GET").then((data) => {
-      //Se recibe el JSON con los datos de la petición
-      setLibros(data); //Se modifica el estado de "libros" con los datos del JSON
+      //Se recibe el JSON con los datos de la petición, si no hubo error, 
+      //se modifica el estado de "libros" con los datos del JSON
+      !data.error ? setLibros(data) : setNotFound([true, [data]]);
       setIsLoading(false);
     });
-  }, [search]);
+
+  }, [search]);//Efecto se ejecutará al inicio (cargando todos los libros) y cuando se haga una búsqueda.
+  //##############################
 
   //Se obtienen libros actuales
   const indexOfLastBook = currentPage * booksPerPage; //indice del último libro
@@ -78,15 +89,25 @@ export function LibrosGrid() {
         paginated={paginated}
       />
     </div>
-  );
+  );  
 
-  if (search) {//Si existe una búsqueda muestra sólo las tarjetas de libros
+  //RETORNO DE COMPONENTES SEGÚN SEA EL CASO
+
+  if (notFound[0])//Si hubo una búsqueda pero sin resultados
+    return (
+      <section className={styles.librosGridContainer}>
+        <Search />
+        <BookNotfound error={notFound[1]} />
+      </section>
+    );
+
+  if (search) {//Si hubo una búsqueda, y fue exitosa, muestra las tarjetas de libros encontrados (sin paginado)
     return (
       <section className={styles.librosGridContainer}>
         {libroCard}
       </section>
     );
-  } else {//Si no existe una búsqueda muestra también el paginado
+  } else {//Si no se solicitó una búsqueda entonces muestra el paginado (todos los libros)
     return (
       <section className={styles.librosGridContainer}>
         {libroCard}

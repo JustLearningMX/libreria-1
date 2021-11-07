@@ -3,7 +3,8 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router";
 import styles from "../css/LibrosGrid.module.css"; //Modulo de estilos para este componente
-import { useQuery } from "../utils/useQuery"
+import { useQuery } from "../utils/useQuery";
+import PropTypes from 'prop-types'; //Validación de propiedades
 
 export function Pagination({ itemsPerPage, totalItems, paginated }) {
   const pageNumbers = []; //Arreglo para el número de páginas del JSON según datosrecibidos
@@ -21,29 +22,35 @@ export function Pagination({ itemsPerPage, totalItems, paginated }) {
   const history = useHistory();
 
   //Efectos en el cambio del paginado
-  useEffect(()=>{
+  useEffect(() => {
     paginated(page ? page : 1);
-}, [page,paginated]);
+  }, [page, paginated]);
 
   return (
     <section className={styles.paginationContainer}>
       {pageNumbers.map((pageNumber) => (
         <form
+          key={pageNumber.toString()} 
           onSubmit={(e) => {
             e.preventDefault();
-            history.push("/libros/?page="+pageNumber);
+            history.push("/libros/?page=" + pageNumber);
           }}
         >
-          <li key={pageNumber.toString()} className={styles.paginationItems}>
-            <button
-              className={styles.paginationButton}
-              type="submit"
-            >
-              {pageNumber}
-            </button>
-          </li>
+          <ul>
+            <li className={styles.paginationItems}>
+              <button className={styles.paginationButton} type="submit">
+                {pageNumber}
+              </button>
+            </li>
+          </ul>
         </form>
       ))}
     </section>
   );
+}
+
+Pagination.propTypes = {
+  itemsPerPage: PropTypes.number.isRequired,
+  totalItems: PropTypes.number.isRequired,
+  paginated: PropTypes.func.isRequired
 }

@@ -38,9 +38,6 @@ export function Header() {
           <Link to="/usuarios">
             <li className={styles.menuItems}>Usuarios</li>
           </Link>
-          {/* <Link to="/acercade">
-            <li className={styles.menuItems}>Acerca de</li>
-          </Link> */}
         </ul>
       </nav>
     </header>
