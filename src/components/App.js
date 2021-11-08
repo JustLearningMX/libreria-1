@@ -1,5 +1,5 @@
 import { Footer } from "./Footer"; //Encabezado con logo, nombre y menú
-import { Header } from "./Header"; //Pie de página
+//import { Header } from "./Header"; //Pie de página
 import { Main } from "./Main"; //El landing page de la aplicación
 import { LibrosGrid } from "./Libros/LibrosGrid"; //Todos los libros de la API
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; //Para las rutas de las páginas

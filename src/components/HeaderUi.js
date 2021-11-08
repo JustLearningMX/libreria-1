@@ -165,7 +165,7 @@ export function HeaderUi() {
           <Container sx={{ display: { xs: "none", md: "flex" } }}>
             <ul className={styles.menu}>
               {opcionesMenu.map((opcion) => (
-                <Link to={opcion.link}>
+                <Link to={opcion.link} key={opcion.id}>
                   <li key={opcion.id} className={styles.menuItems}>
                     {opcion.title}
                   </li>

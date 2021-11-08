@@ -42,3 +42,8 @@
 .libroInformacion span{
     font-weight: lighter;
 }
+
+.libroInformacion .comments{
+    padding-top: .5rem;
+    padding-bottom: .05rem;
+}
