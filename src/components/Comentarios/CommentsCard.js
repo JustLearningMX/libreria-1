@@ -1,40 +1,69 @@
+//COMPONENTE QUE DIBUJA UN TARJETA DE COMENTARIOS
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-//import CssBaseline from "@mui/material/CssBaseline";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-//import RestoreIcon from "@mui/icons-material/Restore";
-//import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentIcon from '@mui/icons-material/Comment';
-//import ArchiveIcon from "@mui/icons-material/Archive";
+import AddCommentIcon from '@mui/icons-material/AddComment';
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import { requestApi } from "../../utils/httpClient";
+import Modal from "./Modal";
 
-export function CommentsCard({ libroId, arrayComments }) {
-  const comentarios = arrayComments.filter(
-    (comment) => comment.libro_id === libroId
-  );
-  console.log(comentarios.lenght)
-  let totalComments = comentarios.length === 0 ? 'Comentarios (0)' : `Comentarios (${comentarios.length})`;
-  console.log(totalComments)
+export function CommentsCard({ libroId, libroTitle, linkCoverBookLarge }) {  
+  
+  //Se obtienen los comentarios del libro
+  const [comments, setComments] = useState([]); 
+  const [value, setValue] = useState(1);
 
-  const [value, setValue] = useState(0);
-  const [messages, setMessages] = useState();
+  //Ventana Modal para agregar comentarios
+  const [openModal, setOpenModal] = useState(false);
+  //Cambiar color al botón "Agregar comentarios"
+  const [colorIconModal, setcolorIconModal] = useState("disabled");
+
+  //Abre la ventana modal
+  const handleClickOpenModal = () => {
+    setcolorIconModal("primary");
+    setOpenModal(true);
+  };
+
+  //Cierra la ventana modal
+  const handleClickCloseModal = () => {
+    setcolorIconModal("disabled");
+    setOpenModal(false);
+  };
 
   useEffect(() => {
-    setMessages();
-  }, [value, setMessages]);
+    const path = `/comentarios/`; //path para traer todos los comentarios de la API
+    requestApi(path, "GET").then((data) => {
+      //Se recibe el JSON con los datos de la petición
+      const comentarios = data.filter(
+        (comment) => comment.libro_id === libroId
+      );
+      setComments(comentarios); //Se modifica el estado de "comments" con los datos del JSON
+    });
+  }, [libroId, setComments]);
+
+  //Guarda el total de comentarios en el libro
+  let totalComments = 0;
+  totalComments = comments.length === 0 ? 'Comentarios (0)' : `Comentarios (${comments.length})`;
 
   return (
     <>
+      <Box sx={{ width: "auto", height: "auto", textAlign: "center" }}>
+        <Paper>
+          <CommentIcon  color="primary"/>
+          <Typography variant="subtitle2" color="primary">
+            {totalComments}
+          </Typography>
+        </Paper>        
+      </Box>
       <Box sx={{ width: "auto", height: "120px", overflowY: "scroll" }}>
         <List>
-          {comentarios.map(({ _id, nombre, email, texto, fecha }) => (
+          {comments.map(({ _id, nombre, email, texto, fecha }) => (
             <ListItem button key={_id}>
               <ListItemAvatar>
                 <Avatar alt="Profile Picture" src={nombre} />
@@ -59,22 +88,18 @@ export function CommentsCard({ libroId, arrayComments }) {
         </List>
       </Box>
       <Box sx={{ width: "auto" }}>
-        <Paper>
-          <BottomNavigation
-            showLabels
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-          >
-            {/* <BottomNavigationAction label="Recents" icon={<RestoreIcon />} /> */}
-            <BottomNavigationAction
-              label={totalComments}
-              icon={<CommentIcon />}
-            />
-            {/* <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} /> */}
-          </BottomNavigation>
+        <Paper sx={{ }}>
+          <Button onClick={handleClickOpenModal} sx={{ display: "flex", flexDirection: "column", padding: "5px 0", width: "100%"}}>
+            <AddCommentIcon  color={colorIconModal}/>
+          </Button>
         </Paper>
+        
+        <Modal 
+          openModal={openModal}
+          handleClickCloseModal={handleClickCloseModal}
+          libroTitle={libroTitle} 
+          linkCoverBookLarge={linkCoverBookLarge}
+        / >
       </Box>
     </>
   );
