@@ -14,7 +14,6 @@ import { CommentsCard} from '../Comentarios/CommentsCard';
 export function LibroDetails() {
   let { libroId } = useParams(); //Obtenemos el parámetro enviado en el Link (Ide del libro)
   const [libro, setLibro] = useState([]); //Datos de un libro específico
-  const [comments, setComments] = useState([]); //Se obtienen los comentarios del libro
 
   const [isLoading, setIsLoading] = useState(true);//Para mostrar un spinner mientras carga de la API
 
@@ -28,16 +27,6 @@ export function LibroDetails() {
       setIsLoading(false);
     });
   }, [libroId]);
-
-  useEffect(() => {
-    const path = `/comentarios/`; //path para traer todos los comentarios de la API
-    requestApi(path, "GET").then((data) => {
-      //Se recibe el JSON con los datos de la petición
-      //console.log(data);
-      setComments(data); //Se modifica el estado de "comments" con los datos del JSON
-    });
-  }, [libroId]);
-
   
   //Al venir vacías no se pueden mapear o trabajar en una función, marca error
   const linkCoverBookLarge = libro._id ? coverBookIntoLarge(libro.image_url,"/") : "";
@@ -66,10 +55,10 @@ export function LibroDetails() {
             <p>Editor: <span>{libro.publisher}</span></p>
             <p>Páginas: <span>{libro.pages}</span></p>
             <p>Autores:  <span>{authorsOfBook}</span></p>
-            <p className={styles.comments}>Comentarios:</p>
+            {/* <p className={styles.comments}>Comentarios:</p> */}
           </div>
           <Container disableGutters sx={{mt: "20px", boxShadow: "0 8px 16px 0 #BDC9D7", fontSize: 10 }}>
-            <CommentsCard libroId={libro._id} arrayComments={comments} />
+            <CommentsCard libroId={libro._id} libroTitle={libro.title} linkCoverBookLarge={linkCoverBookLarge} />
           </Container>
         </div>        
       </div>

@@ -11,6 +11,12 @@
             "name": "http://localhost:4014/libros",
             "request": "launch",
             "url": "http://localhost:4014/libros"
+        },
+        {
+            "type": "pwa-chrome",
+            "name": "http://localhost:3000/libros/id/613d8a2546ed939f5bfe3e29",
+            "request": "launch",
+            "url": "http://localhost:3000/libros/id/613d8a2546ed939f5bfe3e29"
         }
     ]
 }

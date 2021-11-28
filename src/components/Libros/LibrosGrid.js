@@ -3,7 +3,7 @@
 import styles from "../../css/LibrosGrid.module.css"; //Modulo de estilos para este componente
 import { useEffect, useState } from "react"; //Para los estados
 import { requestApi } from "../../utils/httpClient"; //Peticiones a la API
-import { useQuery } from "../../utils/useQuery"; //Hook personalizada para recuperar parámetros de la URL
+import { useQuery } from "../../utils/UseQuery"; //Hook personalizada para recuperar parámetros de la URL
 
 //Componentes
 import { LibroCard } from "./LibroCard"; //Dibuja una tarjeta por cada libro recuperado de la API
