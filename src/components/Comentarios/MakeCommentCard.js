@@ -3,52 +3,65 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { TextField, FormControl, Alert, Snackbar  } from '@mui/material';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function MakeCommentCard({ linkCoverBookLarge, setBotonGuardar }) {
+export default function MakeCommentCard({ linkCoverBookLarge, setBotonGuardarDisabled, usersComments, setUsersComments }) {
 
-  const [emailArroba, setEmailArroba] = useState(false);
   const [snackbar, setSnackBar] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [nombre, setNombre] = useState(false);
-  const [comentarios, setComentarios] = useState(false);
-  // let arroba = false;
+  // console.log(usersComments)
+  //Gran libro de aventuras, me encantó y pienso leerme la trilogía del Señor de los anillos. Recomendado!
 
   const verificarTexto = (e, campo) => {
-    const nombreValue = e.target.value;
+    const textValue = e.target.value;      
     
-    if(nombreValue.length <= 0){
+    if(textValue.length <= 0){
+      setBotonGuardarDisabled(true);//Desactivamos el botón guardar
       setErrorMsg(`¡El ${campo} no puede ir vacío!`);
       setSnackBar(true);
-    } else {
-
-      campo === "Nombre" ? setNombre(true) : setComentarios(true);
-
-    };    
-
-    if (emailArroba && nombre && comentarios){
-      setBotonGuardar(false);
     }
   };
 
-  const verificarEmailOnChange = (e) => {
-    
-    const emailValue = e.target.value;
-    emailValue.includes('@') ? setEmailArroba(true) : setEmailArroba(false);
+  const guardarTexto = (e, campo) => {
+    const textValue = e.target.value;
+
+    if(campo === "Nombre") 
+    { 
+      setUsersComments({
+        ...usersComments,
+        "nombre": textValue,
+      });
+    } 
+    else 
+    {  
+      setUsersComments({
+        ...usersComments,
+        "texto": textValue,
+      });
+    };
+
+    if (usersComments.nombre && usersComments.texto && usersComments.email){    
+      setBotonGuardarDisabled(false);//Activamos el botón guardar
+    }
   };
 
   const verificarEmailOnBlur = (e) => {
-
     const emailValue = e.target.value;
-    emailValue.includes('@') ? setEmailArroba(true) : setEmailArroba(false);
-
-    if(!emailArroba){
+    if(emailValue.includes('@') && emailValue.includes('.')) 
+    {
+      setUsersComments({
+        ...usersComments,
+        "email": emailValue,
+      });
+    } 
+    else
+    {
+      setBotonGuardarDisabled(true);//Desactivamos el botón guardar
       setErrorMsg("¡Ingrese un EMAIL válido!");
       setSnackBar(true);
     }
-
-    if (emailArroba && nombre && comentarios){
-      setBotonGuardar(false);
+    if (usersComments.nombre && usersComments.texto && usersComments.email){    
+      setBotonGuardarDisabled(false);//Activamos el botón guardar
     }
   };
 
@@ -56,13 +69,8 @@ export default function MakeCommentCard({ linkCoverBookLarge, setBotonGuardar })
     if (reason === 'clickaway') {
       return;
     }
-
     setSnackBar(false);
   };
-
-  useEffect(()=>{
-
-  },[]);
 
   return (
     <Card sx={{ width: "auto"}}>
@@ -82,6 +90,7 @@ export default function MakeCommentCard({ linkCoverBookLarge, setBotonGuardar })
             size="small" 
             sx={{marginBottom: "10px"}} 
             required={true}
+            onChange={(e)=>guardarTexto(e, 'Nombre')}
             onBlur={(e)=>verificarTexto(e, 'Nombre')}
           />
           <TextField 
@@ -94,7 +103,6 @@ export default function MakeCommentCard({ linkCoverBookLarge, setBotonGuardar })
             required={true}
             type={'email'}
             placeholder="example@example.com"
-            onChange={verificarEmailOnChange}
             onBlur={verificarEmailOnBlur}
           />
           <TextField
@@ -106,10 +114,11 @@ export default function MakeCommentCard({ linkCoverBookLarge, setBotonGuardar })
             rows={3}
             variant="outlined"
             required={true}
+            onChange={(e)=>guardarTexto(e, 'Comentario')}
             onBlur={(e)=>verificarTexto(e, 'Comentario')}
           />
         </FormControl>
-        <Snackbar open={snackbar} autoHideDuration={6000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center', }}>
+        <Snackbar open={snackbar} autoHideDuration={6000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}>
         <Alert onClose={closeSnackbar} severity="error" sx={{ width: '100%' }}>
           {errorMsg}
         </Alert>

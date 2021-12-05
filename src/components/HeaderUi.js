@@ -174,7 +174,7 @@ export function HeaderUi() {
             </ul>
           </Container>
           {menuResponsivo /**Menú para pantallas medianas y chicas*/}
-          {/**usuariosMenu Traemos el botón de Usuarios y su menú de opciones*/}
+          {usuariosMenu /**Traemos el botón de Usuarios y su menú de opciones*/}
         </Toolbar>
       </Container>
     </AppBar>
