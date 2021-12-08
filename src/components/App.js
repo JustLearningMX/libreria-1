@@ -2,13 +2,15 @@ import { Footer } from "./Footer"; //Encabezado con logo, nombre y menú
 //import { Header } from "./Header"; //Pie de página
 import { Main } from "./Main"; //El landing page de la aplicación
 import { LibrosGrid } from "./Libros/LibrosGrid"; //Todos los libros de la API
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; //Para las rutas de las páginas
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"; //Para las rutas de las páginas
 import { LibroDetails } from "./Libros/LibroDetails";
 import { HeaderUi } from "./HeaderUi";
 import styles from '../css/Main.module.css';
 import { useState } from "react";
 import Comentarios from './Comentarios';
 import Autores from './Autores';
+import { SignIn } from "./Usuarios/SignIn";
+import { LogOut } from "./Usuarios/LogOut";
 
 // Punto de entrada de la aplicación
 function App() {
@@ -16,7 +18,7 @@ function App() {
   //Estados para el botón comentarios
   const [isAddC, setIsAddC] = useState(false);
   const [textAddUpdateC, setTextAddUpdateC] = useState("Agregar comentarios");
-
+  
   //Estados para el botón Autores
   const [isAdd, setIsAdd] = useState(false);
   const [textAddUpdate, setTextAddUpdate] = useState("Agregar autores");
@@ -74,9 +76,26 @@ function App() {
             {isAdd && <Autores />}
           </h1>
           </Route>
-          <Route exact path="/usuarios"> {/**Ruta que muestra los usuarios */}
-          <h1 style={temporalStyle}>Aquí va a ir el componente de los Usuarios</h1>
+          
+          <Route 
+            exact 
+            path="/usuarios/signin" 
+            render={()=>{
+              const loggedUserJson = window.localStorage.getItem('loggedBooksAppUser');
+              return loggedUserJson ? <Redirect to="/libros" /> : <SignIn />
+            }} /> 
+
+          <Route exact path="/usuarios/signup"> {/**Ruta para que los usuarios ingresen */}
+            <h1 style={temporalStyle}>SignUp de los Usuarios</h1>
           </Route>
+          
+          <Route 
+            // exact 
+            path="/usuarios/logout" 
+            render={()=>{
+              const loggedUserJson = window.localStorage.getItem('loggedBooksAppUser');              
+              return !loggedUserJson ? <Redirect to="/usuarios/signin" /> : <LogOut />;
+            }} /> 
           <Route path="/">
             <Main />
           </Route>
