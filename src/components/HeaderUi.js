@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-import { Link } from "react-router-dom"; //Para enlazar el menú con sus respectivas páginas
+import { Link, Redirect } from "react-router-dom"; //Para enlazar el menú con sus respectivas páginas
 import {
   Avatar,
   Container,
@@ -18,11 +18,12 @@ import {
 } from "@mui/material";
 
 import styles from "../css/Header.module.css"; //Estilos para el header
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function HeaderUi() {
   const [anchorElMenuUser, setAnchorElMenuUser] = useState(null);
   const [anchorElMainMenu, setAnchorElMainMenu] = useState(null);
+  const [loggedUserJson, setLoggedUserJson] = useState("");
 
   const handleMenuUser = (event) => {
     setAnchorElMenuUser(event.currentTarget);
@@ -38,6 +39,12 @@ export function HeaderUi() {
 
   const handleCloseMainMenu = () => {
     setAnchorElMainMenu(null);
+  };
+
+  const handleLogOut = () => {
+    setAnchorElMenuUser(null);
+    // setLoggedUserJson(null);
+    // window.localStorage.removeItem('loggedBooksAppUser');
   };
 
   const opcionesMenu = [
@@ -93,6 +100,56 @@ export function HeaderUi() {
   );
 
   //Dibuja un ícono en el menú principal para Ingresar o Darse de Alta
+  const userOptionsWithoutToken = (
+    <div>
+      <MenuItem onClick={handleCloseMenuUser}>
+        <Link to="/usuarios/signup">
+          <Box sx={{ display: "flex" }}>
+            <Avatar sx={{ width: 24, height: 24, mr: 1 }} variant="rounded">
+              R
+            </Avatar>
+            Registrarse
+          </Box>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleCloseMenuUser}>
+        <Link to="/usuarios/signin">
+          <Box sx={{ display: "flex" }}>
+            <Avatar sx={{ width: 24, height: 24, mr: 1 }} variant="rounded">
+              I
+            </Avatar>
+            Ingresar
+          </Box>
+        </Link>
+      </MenuItem>
+    </div>
+  );
+
+  const userOptionsWithToken = (
+    <div>
+      <MenuItem onClick={handleCloseMenuUser}>
+        <Link to="/usuarios/info">
+          <Box sx={{ display: "flex" }}>
+            <Avatar sx={{ width: 24, height: 24, mr: 1 }} variant="rounded">
+              I
+            </Avatar>
+            Información
+          </Box>
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleCloseMenuUser}>
+        <Link to="/usuarios/logout">
+          <Box sx={{ display: "flex" }}>
+            <Avatar sx={{ width: 24, height: 24, mr: 1 }} variant="rounded">
+              S
+            </Avatar>
+            Salir
+          </Box>
+        </Link>
+      </MenuItem>
+    </div>
+  );
+
   const usuariosMenu = (
     <>
       <Tooltip title="Account settings">
@@ -103,8 +160,12 @@ export function HeaderUi() {
           aria-haspopup="true"
           onClick={handleMenuUser}
           color="inherit"
+          sx={{ display:'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
         >
           <AccountCircle />
+          <Typography variant='caption'>
+            {loggedUserJson ? JSON.parse(loggedUserJson).username : ""}
+          </Typography>
         </IconButton>
       </Tooltip>
       <Menu
@@ -122,29 +183,17 @@ export function HeaderUi() {
         open={Boolean(anchorElMenuUser)}
         onClose={handleCloseMenuUser}
       >
-        <MenuItem onClick={handleCloseMenuUser}>
-          <Link to="/usuarios">
-            <Box sx={{ display: "flex" }}>
-              <Avatar sx={{ width: 24, height: 24, mr: 1 }} variant="rounded">
-                R
-              </Avatar>
-              Registrarse
-            </Box>
-          </Link>
-        </MenuItem>
-        <MenuItem onClick={handleCloseMenuUser}>
-          <Link to="/usuarios">
-            <Box sx={{ display: "flex" }}>
-              <Avatar sx={{ width: 24, height: 24, mr: 1 }} variant="rounded">
-                I
-              </Avatar>
-              Ingresar
-            </Box>
-          </Link>
-        </MenuItem>
+        { loggedUserJson ? userOptionsWithToken : userOptionsWithoutToken}        
       </Menu>
     </>
   );
+
+  //Efecto para checar si el usuario ya tiene 
+  //sesión iniciada y mostrar menú de opciones
+  useEffect(()=>{
+    const localStoragedUserJson = window.localStorage.getItem('loggedBooksAppUser');
+    localStoragedUserJson ? setLoggedUserJson(localStoragedUserJson) : setLoggedUserJson("");
+  }, []);
 
   return (
     <AppBar className={`${styles.header}`} sx={{ height: "80px", lineHeight: "80px" }}>
