@@ -13,6 +13,9 @@ import { requestApi } from "../../utils/httpClient";
 import Modal from "./Modal";
 import { Alert, Box, Snackbar  } from '@mui/material';
 
+//Si el usuario está lougeado y guardado en local storage
+const loggedUserJson = window.localStorage.getItem('loggedBooksAppUser') ? window.localStorage.getItem('loggedBooksAppUser') : null;
+
 export function CommentsCard({ libroId, libroTitle, linkCoverBookLarge }) {  
   
   //Se obtienen los comentarios del libro
@@ -35,14 +38,18 @@ export function CommentsCard({ libroId, libroTitle, linkCoverBookLarge }) {
     setSnackBar(false);
   };
 
-  // const openSnackbar = ()=>{
-  //   setSnackBar(true);
-  // };
-
-  //Abre la ventana modal
-  const handleClickOpenModal = () => {
-    setcolorIconModal("primary");
-    setOpenModal(true);
+  //Abre la ventana modal para agregar comentarios
+  const handleClickOpenModal = () => {        
+    
+    //Si el usuario ya está logueado
+    if(loggedUserJson){
+      setcolorIconModal("primary");
+      setOpenModal(true);      
+    } else {      
+      setalertSeverity("error");
+      setErrorMsg("Inicie Sesión para poder agregar un comentario"); 
+      setSnackBar(true);
+    }
   };
 
   //Cierra la ventana modal
