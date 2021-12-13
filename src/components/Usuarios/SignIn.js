@@ -108,7 +108,8 @@ export function SignIn({ title ="Iniciar sesión", subTitle ="Comenta tus libros
                 <label className={styles.label}>Contraseña:</label>
                 <input 
                     name="password" 
-                    type="password" 
+                    type="password"
+                    placeholder="**********" 
                     className={styles.input} 
                     required
                     onChange={handleChangeInput} />
