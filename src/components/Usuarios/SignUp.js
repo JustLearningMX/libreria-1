@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';//Uso de estados
 import styles from '../../css/SignUp.css';//Estilos CSS
-import { requestApi } from '../../utils/httpClient';//Conexión a la BD
 import { Redirect } from "react-router-dom"; //Para las rutas de las páginas
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { makeStyles } from '@mui/styles';
 
-export function SignUp({ handleClose }) {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+
+export function SignUp() {
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -30,14 +30,27 @@ export function SignUp({ handleClose }) {
         },
       }));
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.log(firstName, lastName, email, password, username);
-        handleClose();
-      };
+    
+     async function signUp(){
+         let item={nombre, apellido, email, password, username}
+         console.warn(item);
+         let result= await fetch('https://libreriapi.herokuapp.com/v1/usuarios',{
+             method: 'POST',
+             body:JSON.stringify(item),
+             headers: new Headers({
+                "Content-Type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*",
+            })
+         })
+         result = await result.json()
+         localStorage.setItem(
+            "user-info", JSON.stringify(result)
+        );
+     } 
+    
       const classes = useStyles();
       return (
-        <form className={classes.root} onSubmit={handleSubmit}>
+        <form className={classes.root} onSubmit={signUp}>
             <TextField
             label="Usuario"
             variant="filled"
@@ -49,15 +62,15 @@ export function SignUp({ handleClose }) {
             label="Nombre"
             variant="filled"
             required
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            value={nombre}
+            onChange={e => setNombre(e.target.value)}
           />
           <TextField
             label="Apellido"
             variant="filled"
             required
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            value={apellido}
+            onChange={e => setApellido(e.target.value)}
           />
           <TextField
             label="Email"
@@ -75,8 +88,9 @@ export function SignUp({ handleClose }) {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
+          
           <div>
-            <Button variant="contained" onClick={handleClose}>
+            <Button variant="contained">
               Cancelar
             </Button>
             <Button type="submit" variant="contained" color="primary">
