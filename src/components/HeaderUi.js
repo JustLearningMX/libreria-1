@@ -6,8 +6,9 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import logo from '../imgs/book.png';
 
-import { Link, Redirect } from "react-router-dom"; //Para enlazar el menú con sus respectivas páginas
+import { Link } from "react-router-dom"; //Para enlazar el menú con sus respectivas páginas
 import {
   Avatar,
   Container,
@@ -41,11 +42,11 @@ export function HeaderUi() {
     setAnchorElMainMenu(null);
   };
 
-  const handleLogOut = () => {
-    setAnchorElMenuUser(null);
-    // setLoggedUserJson(null);
-    // window.localStorage.removeItem('loggedBooksAppUser');
-  };
+  // const handleLogOut = () => {
+  //   setAnchorElMenuUser(null);
+  //   setLoggedUserJson(null);
+  //   window.localStorage.removeItem('loggedBooksAppUser');
+  // };
 
   const opcionesMenu = [
     {
@@ -53,16 +54,16 @@ export function HeaderUi() {
       title: "Libros",
       link: "/libros",
     },
-    {
-      id: 2,
-      title: "Comentarios",
-      link: "/comentarios",
-    },
-    {
-      id: 3,
-      title: "Autores",
-      link: "/autores",
-    },
+    // {
+    //   id: 2,
+    //   title: "Comentarios",
+    //   link: "/comentarios",
+    // },
+    // {
+    //   id: 3,
+    //   title: "Autores",
+    //   link: "/autores",
+    // },
   ];
 
   const menuResponsivoOpciones = (
@@ -204,11 +205,12 @@ export function HeaderUi() {
               <Container sx={{ display: { xs: 'none', sm: "flex"} }} className={styles.logoHeader}>
                 <img
                   className={styles.logo}
-                  src="https://i.pinimg.com/originals/b9/12/80/b91280364e12594bea63ae99ccc2767e.png"
-                  alt="Logo-LibreríaBedu"
+                  // src="https://i.pinimg.com/originals/b9/12/80/b91280364e12594bea63ae99ccc2767e.png"
+                  src={logo}
+                  alt="Logo-flipbook"
                 />
               </Container>
-              <Box className={styles.titulo}>Librería Bedu</Box>
+              <Box className={styles.titulo}>flipbook</Box>
             </div>
           </Link>
           <Container sx={{ display: { xs: "none", md: "flex" } }}>

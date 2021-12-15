@@ -13,8 +13,9 @@ export function LogOut() {
     const [openModal, setOpenModal] = useState(true);
     const [redirect, setRedirect] = useState(false);
 
+    //Si el usuario está lougeado y guardado en local storage
     const loggedUserJson = window.localStorage.getItem('loggedBooksAppUser');
-    const user = JSON.parse(loggedUserJson).username;
+    const user = loggedUserJson ? JSON.parse(loggedUserJson) : null;//Se guardan en un JSON
 
     const handleClickCloseModal = () =>{
         setRedirect(true);
@@ -45,7 +46,7 @@ export function LogOut() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title" sx={{ paddingBottom: 0}}>
-                    {`Hola ${user}, ¿Deseas cerrar la sesión?`}
+                    {`Hola ${user.username}, ¿Deseas cerrar la sesión?`}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description" sx={{ paddingBottom: "5px"}}>
