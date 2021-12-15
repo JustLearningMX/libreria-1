@@ -4,7 +4,7 @@ import { requestApi } from '../../utils/httpClient';//Conexión a la BD
 import { Redirect } from "react-router-dom"; //Para las rutas de las páginas
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 
 export function SignUp({ handleClose }) {
     const [firstName, setFirstName] = useState('');
@@ -13,7 +13,7 @@ export function SignUp({ handleClose }) {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
 
-    const useStyles = makeStyles(theme => ({
+    const useStyles = styled(theme => ({
         root: {
           display: 'flex',
           flexDirection: 'column',

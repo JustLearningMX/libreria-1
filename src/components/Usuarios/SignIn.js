@@ -4,8 +4,9 @@
 import { useState, useEffect } from 'react';//Uso de estados
 import styles from '../../css/SignIn.module.css';//Estilos CSS
 import { requestApi } from '../../utils/httpClient';//Conexión a la BD
-import { Alert, Box, Snackbar  } from '@mui/material';//Mensajes con MUI
+import { Alert, Box, Snackbar, TextField, Divider, Button, Stack, Typography } from '@mui/material';//Mensajes con MUI
 import CircularProgress from '@mui/material/CircularProgress';
+import { Link } from "react-router-dom";
 
 export function SignIn({ title ="Iniciar sesión", subTitle ="Comenta tus libros favoritos"  }) {
 
@@ -21,7 +22,6 @@ export function SignIn({ title ="Iniciar sesión", subTitle ="Comenta tus libros
     const [progress, setProgress] = useState({"display": "none"});
 
     const closeSnackbar = (event, reason) => {
-        // setProgress({"display": "none"});
 
         if (reason === 'clickaway') {
           return;
@@ -31,7 +31,6 @@ export function SignIn({ title ="Iniciar sesión", subTitle ="Comenta tus libros
         
         if(alertSeverity === "success")  {
             window.location.reload(false);
-            // setRedirect(true);
         };
       };
 
@@ -88,40 +87,55 @@ export function SignIn({ title ="Iniciar sesión", subTitle ="Comenta tus libros
         
     }, [getUserFromDb]);
 
-    // const loggedUserJson = window.localStorage.getItem('loggedBooksAppUser');
-     //redirect ? <Redirect to="/" /> :
      return (
         <section className={styles.container}>
             <form className={styles.form} onSubmit={handleOnCLick}>
                 <p className={styles.title}>{title}</p>
                 <p className={styles.subTitle}>{subTitle}</p>
 
-                <label className={styles.label}>Email:</label>
-                <input 
+                <TextField
+                    label="Email"
+                    variant="outlined"
                     name="email" 
-                    type="email" 
+                    type="email"
                     placeholder="Ingrese su email" 
-                    className={styles.input} 
-                    required
-                    onChange={handleChangeInput} />
-                
-                <label className={styles.label}>Contraseña:</label>
-                <input 
+                    required                    
+                    className={styles.input}
+                    onChange={handleChangeInput}
+                />
+
+                <TextField
+                    label="Password"
                     name="password" 
                     type="password"
-                    placeholder="**********" 
-                    className={styles.input} 
-                    required
-                    onChange={handleChangeInput} />
+                    placeholder="password"  
+                    variant="outlined"
+                    required                    
+                    className={styles.input}
+                    onChange={handleChangeInput}
+                />
 
                 <input type="submit" value="Iniciar sesión" className={styles.button} disabled={disabledButton}></input>
                                 
                 <Box sx={ progress}>
-                    <CircularProgress size={30} sx={{ marginTop: "12px"}} />
+                    <CircularProgress size={30} sx={{ margin: "15px 0"}} />
                 </Box>
+                <Divider variant="middle" sx={{ margin: "12px 0"}} />
+                <Stack spacing={1} direction="row" sx={{alignItems: "center"}}>
+                    <Typography sx={{fontSize: ".8rem", color: "rgba(0,0,0,0.9)"}} >¿Eres nuevo en flipbook?</Typography>
+                    <Button 
+                        variant="text" 
+                        size="small" 
+                        sx={{textTransform: "none", fontWeight: "bold", padding: 0, fontSize: ".8rem"}}
+                    >
+                    <Link to="/usuarios/signup" >
+                        Únete ahora
+                    </Link>
+                    </Button>
+                </Stack>
             </form>
             <Box>
-                <Snackbar open={snackbar} autoHideDuration={3000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}>
+                <Snackbar open={snackbar} autoHideDuration={25000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}>
                     <Alert onClose={closeSnackbar} severity={alertSeverity} sx={{ width: '100%' }}>
                     {errorMsg}
                     </Alert>                

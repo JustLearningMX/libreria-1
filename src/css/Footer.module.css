@@ -1,21 +1,42 @@
 .footer {  
-  height: 50vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+  background-color: #303841;
+  line-height: 1.7rem;
+  padding-top: 100px;
+  /* background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%); */
+}
+
+.projectContainer{
+  /* background-color: greenyellow; */
+  margin: 0 3rem;
 }
 
 .h1_ {
   color: white;
-  font-size: 2;
+  font-size: 1.5rem;
 }
 
 .p_ {
+  color: #f0f0f0; /* #be3144; */
+  font-size: 1.2rem;
+}
+
+.a_{
+  padding: .7rem 1rem 0 0;
   color: #be3144;
-  font-size: 1.4em;
-  text-align: center;
-  font-weight: 200;
-  font-style: italic;
-  font-weight: bold;
+}
+
+.disclaimer{
+  margin: 2rem 2rem 1rem 2rem;
+  padding: 1rem 1rem;
+  border-top: 4px solid #be3144;
+  color: #f0f0f0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  line-height: 1.3rem;
 }

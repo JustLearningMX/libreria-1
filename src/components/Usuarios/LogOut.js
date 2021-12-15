@@ -46,7 +46,7 @@ export function LogOut() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title" sx={{ paddingBottom: 0}}>
-                    {`Hola ${user}, ¿Deseas cerrar la sesión?`}
+                    {`Hola ${user.username}, ¿Deseas cerrar la sesión?`}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description" sx={{ paddingBottom: "5px"}}>
