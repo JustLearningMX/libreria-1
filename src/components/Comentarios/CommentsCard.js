@@ -13,6 +13,9 @@ import { requestApi } from "../../utils/httpClient";
 import Modal from "./Modal";
 import { Alert, Box, Snackbar  } from '@mui/material';
 
+//Si el usuario está lougeado y guardado en local storage
+const loggedUserJson = window.localStorage.getItem('loggedBooksAppUser') ? window.localStorage.getItem('loggedBooksAppUser') : null;
+
 export function CommentsCard({ libroId, libroTitle, linkCoverBookLarge }) {  
   
   //Se obtienen los comentarios del libro
@@ -35,14 +38,18 @@ export function CommentsCard({ libroId, libroTitle, linkCoverBookLarge }) {
     setSnackBar(false);
   };
 
-  // const openSnackbar = ()=>{
-  //   setSnackBar(true);
-  // };
-
-  //Abre la ventana modal
-  const handleClickOpenModal = () => {
-    setcolorIconModal("primary");
-    setOpenModal(true);
+  //Abre la ventana modal para agregar comentarios
+  const handleClickOpenModal = () => {        
+    
+    //Si el usuario ya está logueado
+    if(loggedUserJson){
+      setcolorIconModal("primary");
+      setOpenModal(true);      
+    } else {      
+      setalertSeverity("error");
+      setErrorMsg("Inicie Sesión para poder agregar un comentario"); 
+      setSnackBar(true);
+    }
   };
 
   //Cierra la ventana modal
@@ -50,6 +57,26 @@ export function CommentsCard({ libroId, libroTitle, linkCoverBookLarge }) {
     setcolorIconModal("disabled");
     setOpenModal(false);
   };
+
+  //Función que integra un color al Avatar
+  function stringToColor(string) {
+    let hash = 0;
+    let i;
+  
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+  
+    let color = '#';
+  
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.substr(-2);
+    }
+  
+    return color;
+  }
 
   useEffect(() => {
     const path = `/comentarios/`; //path para traer todos los comentarios de la API
@@ -81,7 +108,11 @@ export function CommentsCard({ libroId, libroTitle, linkCoverBookLarge }) {
           {comments.map(({ _id, nombre, email, texto, fecha }) => (
             <ListItem button key={_id}>
               <ListItemAvatar>
-                <Avatar alt="Profile Picture" src={nombre} />
+                <Avatar 
+                  sx={{ backgroundColor: stringToColor(nombre) }}
+                  alt={nombre} 
+                  src={nombre} 
+                />
               </ListItemAvatar>
               <ListItemText
                 primary={

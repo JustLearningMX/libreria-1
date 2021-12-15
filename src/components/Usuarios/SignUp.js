@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from '../../css/SignUp.module.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 
 
 export function SignUp({ title = "Registrate", subTitle = "Comenta tus libros favoritos" }) {
@@ -13,7 +13,7 @@ export function SignUp({ title = "Registrate", subTitle = "Comenta tus libros fa
     const [username, setUsername] = useState('');
     const [tipo, setTipo] = useState('');
 
-    const useStyles = makeStyles(theme => ({
+    const useStyles = styled(theme => ({
         root: {
             display: 'flex',
             flexDirection: 'column',

@@ -9,58 +9,26 @@ export default function MakeCommentCard({ linkCoverBookLarge, setBotonGuardarDis
 
   const [snackbar, setSnackBar] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  // console.log(usersComments)
-  //Gran libro de aventuras, me encantó y pienso leerme la trilogía del Señor de los anillos. Recomendado!
 
-  const verificarTexto = (e, campo) => {
+  const handleBlurTexto = (e, campo) => {
     const textValue = e.target.value;      
-    
-    if(textValue.length <= 0){
+
+    if(textValue.trim().length <= 0){
       setBotonGuardarDisabled(true);//Desactivamos el botón guardar
       setErrorMsg(`¡El ${campo} no puede ir vacío!`);
       setSnackBar(true);
     }
   };
 
-  const guardarTexto = (e, campo) => {
+  const handleChangeTexto = (e, campo) => {
     const textValue = e.target.value;
 
-    if(campo === "Nombre") 
-    { 
-      setUsersComments({
-        ...usersComments,
-        "nombre": textValue,
-      });
-    } 
-    else 
-    {  
       setUsersComments({
         ...usersComments,
         "texto": textValue,
       });
-    };
 
-    if (usersComments.nombre && usersComments.texto && usersComments.email){    
-      setBotonGuardarDisabled(false);//Activamos el botón guardar
-    }
-  };
-
-  const verificarEmailOnBlur = (e) => {
-    const emailValue = e.target.value;
-    if(emailValue.includes('@') && emailValue.includes('.')) 
-    {
-      setUsersComments({
-        ...usersComments,
-        "email": emailValue,
-      });
-    } 
-    else
-    {
-      setBotonGuardarDisabled(true);//Desactivamos el botón guardar
-      setErrorMsg("¡Ingrese un EMAIL válido!");
-      setSnackBar(true);
-    }
-    if (usersComments.nombre && usersComments.texto && usersComments.email){    
+    if (usersComments.texto && textValue.trim().length > 0){    
       setBotonGuardarDisabled(false);//Activamos el botón guardar
     }
   };
@@ -82,40 +50,17 @@ export default function MakeCommentCard({ linkCoverBookLarge, setBotonGuardarDis
       />
       <CardContent sx={{display: "flex", flexDirection: "column"}}>
         <FormControl>
-          <TextField 
-            id="tfNombre" 
-            fullWidth 
-            label="Nombre" 
-            variant="outlined" 
-            size="small" 
-            sx={{marginBottom: "10px"}} 
-            required={true}
-            onChange={(e)=>guardarTexto(e, 'Nombre')}
-            onBlur={(e)=>verificarTexto(e, 'Nombre')}
-          />
-          <TextField 
-            id="tfEmail" 
-            fullWidth 
-            label="Email" 
-            variant="outlined" 
-            size="small" 
-            sx={{marginBottom: "10px"}} 
-            required={true}
-            type={'email'}
-            placeholder="example@example.com"
-            onBlur={verificarEmailOnBlur}
-          />
           <TextField
             size="small" 
             id="outlined-textarea"
             label="Comentarios"
             placeholder="Que te ha parecido el libro"
             multiline
-            rows={3}
+            rows={4}
             variant="outlined"
             required={true}
-            onChange={(e)=>guardarTexto(e, 'Comentario')}
-            onBlur={(e)=>verificarTexto(e, 'Comentario')}
+            onChange={(e)=>handleChangeTexto(e, 'Comentario')} //Guardar
+            onBlur={(e)=>handleBlurTexto(e, 'Comentario')} //Verificar
           />
         </FormControl>
         <Snackbar open={snackbar} autoHideDuration={6000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}>

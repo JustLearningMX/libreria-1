@@ -16,6 +16,9 @@ export function LibrosGrid() {
   const [libros, setLibros] = useState([]); //Array de todos los libros de la API
   const [notFound, setNotFound] = useState([false,[]]); //Estado para libros no encontrados
   const [isLoading, setIsLoading] = useState(true); //Para mostrar un spinner mientras carga de la API
+  
+  const [firstTime, setFirstTime] = useState(true); //Bandera cuando carga por pirmera vez el componente
+  const [allBooks, setAllBooks] = useState([]); //Todos los libros
 
   //####Estados para controlar el paginado del resultado JSON###
   const [currentPage, setCurrentPage] = useState(0); //Página actual
@@ -39,6 +42,12 @@ export function LibrosGrid() {
       //Se recibe el JSON con los datos de la petición, si no hubo error, 
       //se modifica el estado de "libros" con los datos del JSON
       !data.error ? setLibros(data) : setNotFound([true, [data]]);
+      
+      if(firstTime){
+        setAllBooks(data);
+        setFirstTime(false);
+      }
+      
       setIsLoading(false);
     });
 
@@ -67,7 +76,7 @@ export function LibrosGrid() {
   //Componente que muestra tarjeta con libro
   const libroCard = (
     <div>
-      <Search />
+      <Search libros={allBooks} />
       <ul className={styles.librosGrid}>
         {currentBooks.map(
           //Mapeamos el array de libros obtenido del Slice
@@ -96,7 +105,7 @@ export function LibrosGrid() {
   if (notFound[0])//Si hubo una búsqueda pero sin resultados
     return (
       <section className={styles.librosGridContainer}>
-        <Search />
+        <Search libros={allBooks} />
         <BookNotfound error={notFound[1]} />
       </section>
     );
