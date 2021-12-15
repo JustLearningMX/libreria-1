@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    height: 100vh;
+    background-color: #45567d;;
+    justify-content: center;
+    align-items: center;
+    padding-top: 70px;
+}
+.title{
+    margin-bottom: 5px;
+    font-size: 1.7rem;
+    font-weight: 500;
+}
+
+.subTitle{
+    margin-bottom: 20px;
+    font-size: .8rem;
+    color: rgba(0,0,0,0.9);
+}
