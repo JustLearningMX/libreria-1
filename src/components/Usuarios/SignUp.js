@@ -2,13 +2,9 @@ import { useState, useEffect } from 'react';
 import styles from '../../css/SignUp.module.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-<<<<<<< HEAD
 import { makeStyles } from '@mui/styles';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
-=======
-import { styled } from '@mui/material/styles';
->>>>>>> 800a0bd4a7d1ceb6132233a47962f100be8d5186
 
 
 export function SignUp({ title = "Registrate", subTitle = "Comenta tus libros favoritos" }) {
@@ -19,7 +15,7 @@ export function SignUp({ title = "Registrate", subTitle = "Comenta tus libros fa
     const [username, setUsername] = useState('');
     const [tipo, setTipo] = useState('');
 
-    const useStyles = styled(theme => ({
+    const useStyles = makeStyles(theme => ({
         root: {
             display: 'flex',
             flexDirection: 'column',
