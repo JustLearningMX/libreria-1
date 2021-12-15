@@ -1,89 +1,119 @@
-import { useState, useEffect } from 'react';//Uso de estados
-import styles from '../../css/SignUp.css';//Estilos CSS
-import { requestApi } from '../../utils/httpClient';//Conexión a la BD
-import { Redirect } from "react-router-dom"; //Para las rutas de las páginas
+import { useState, useEffect } from 'react';
+import styles from '../../css/SignUp.module.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 
-export function SignUp({ handleClose }) {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+
+export function SignUp({ title = "Registrate", subTitle = "Comenta tus libros favoritos" }) {
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [tipo, setTipo] = useState('');
 
     const useStyles = styled(theme => ({
         root: {
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-      
-          '& .MuiTextField-root': {
-            margin: '5px',
-            width: '300px',
-          },
-          '& .MuiButtonBase-root': {
-            margin: '5px',
-          },
-        },
-      }));
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '1rem 1.2rem',
+            background: 'white',
+            borderRadius: '20px',
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.log(firstName, lastName, email, password, username);
-        handleClose();
-      };
-      const classes = useStyles();
-      return (
-        <form className={classes.root} onSubmit={handleSubmit}>
-            <TextField
-            label="Usuario"
-            variant="filled"
-            required
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            />
-          <TextField
-            label="Nombre"
-            variant="filled"
-            required
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-          />
-          <TextField
-            label="Apellido"
-            variant="filled"
-            required
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-          />
-          <TextField
-            label="Email"
-            variant="filled"
-            type="email"
-            required
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-          <TextField
-            label="Password"
-            variant="filled"
-            type="password"
-            required
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-          <div>
-            <Button variant="contained" onClick={handleClose}>
-              Cancelar
-            </Button>
-            <Button type="submit" variant="contained" color="primary">
-              Registrarse
-            </Button>
-          </div>
-        </form>
-      );
-    
+            '& .MuiTextField-root': {
+                margin: '5px',
+                width: '300px',
+            },
+            '& .MuiButtonBase-root': {
+                margin: '5px',
+            },
+        },
+    }));
+
+
+    async function signUp() {
+        let item = { nombre, apellido, email, password, username, tipo }
+        console.warn(item);
+        let result = await fetch('https://libreriapi.herokuapp.com/v1/usuarios', {
+            method: 'POST',
+            body: JSON.stringify(item),
+            headers: new Headers({
+                "Content-Type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*",
+            })
+        })
+        result = await result.json()
+        localStorage.setItem(
+            "user-info", JSON.stringify(result)
+        );
+    }
+
+    const classes = useStyles();
+    return (
+        <section className={styles.container}>
+            <form className={classes.root} onSubmit={signUp}>
+            <p className={styles.title}>{title}</p>
+            <p className={styles.subTitle}>{subTitle}</p>
+                <TextField
+                    label="Usuario"
+                    variant="filled"
+                    required
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                />
+                <TextField
+                    label="Nombre"
+                    variant="filled"
+                    required
+                    value={nombre}
+                    onChange={e => setNombre(e.target.value)}
+                />
+                <TextField
+                    label="Apellido"
+                    variant="filled"
+                    required
+                    value={apellido}
+                    onChange={e => setApellido(e.target.value)}
+                />
+                <TextField
+                    label="Email"
+                    variant="filled"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                />
+                <TextField
+                    label="Password"
+                    variant="filled"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+
+                <TextField
+                    label="Tipo (admin)"
+                    variant="filled"
+                    type="text"
+                    required
+                    value={tipo}
+                    onChange={e => setTipo(e.target.value)}
+                />
+
+                <div>
+                    <Button variant="contained">
+                        Cancelar
+                    </Button>
+                    <Button type="submit" variant="contained" color="primary">
+                        Registrarse
+                    </Button>
+                </div>
+            </form>
+        </section>
+    );
+
 }
