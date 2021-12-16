@@ -10,7 +10,10 @@ export function Main() {
 
   return (
     <main className={styles.main}>
-      <Carrusel/>
+      <Stack spacing={2} sx={{ width: "320px", height: "480px"}}>
+        <Carrusel/>
+      </Stack>
+
       <Stack spacing={2} sx={{ width: "60%"}}>
         <Box>         
           

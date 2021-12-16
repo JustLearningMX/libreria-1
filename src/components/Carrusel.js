@@ -1,6 +1,7 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState, useEffect } from 'react';
+import { coverBookIntoLarge } from "../utils/coverBookIntoLarge";
 
 export function Carrusel() {
 
@@ -23,11 +24,16 @@ export function Carrusel() {
             emulateTouch={true}
             infiniteLoop={true}
             showThumbs={false}
-            width="100%">
+            showIndicators={false}
+            showStatus={false}
+            transitionTime={800}
+            width="auto"
+        >
             {libros && libros.map((book, index) => {
+                const linkCoverBookLarge = coverBookIntoLarge(book.image_url, "/");
                 return (
                     <div style={{paddingBottom: '50px' }} key={index}>
-                        <img style={{ width: '300px', height: '500px' }} src={book.image_url} alt="" />
+                        <img style={{ width: '300px', height: '380px' }} src={linkCoverBookLarge} alt={book.title} />
                     </div>
                 )
             }
