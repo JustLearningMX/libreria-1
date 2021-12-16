@@ -30,12 +30,12 @@
   width: 100%;
   font-weight: 700;
 
-  -webkit-text-stroke-color: #000;
-  -webkit-text-stroke-width: 1.2px;
+  /* -webkit-text-stroke-color: #5B305A;
+  -webkit-text-stroke-width: 1.2px; */
   /* shorthand */
-  -webkit-text-stroke: 1.2px #000;
+  -webkit-text-stroke: .5px #000;
   /* color del texto */
-  -webkit-text-fill-color: #f3991b;
+  -webkit-text-fill-color: #BF7D31; /*#f3991b;*/
 }
 
 .menu {
