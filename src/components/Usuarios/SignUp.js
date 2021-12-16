@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import styles from '../../css/SignUp.module.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { styled } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export function SignUp({ title = "Registrate", subTitle = "Comenta tus libros favoritos" }) {
@@ -13,7 +15,7 @@ export function SignUp({ title = "Registrate", subTitle = "Comenta tus libros fa
     const [username, setUsername] = useState('');
     const [tipo, setTipo] = useState('');
 
-    const useStyles = styled(theme => ({
+    const useStyles = makeStyles(theme => ({
         root: {
             display: 'flex',
             flexDirection: 'column',
@@ -102,13 +104,14 @@ export function SignUp({ title = "Registrate", subTitle = "Comenta tus libros fa
                     required
                     value={tipo}
                     onChange={e => setTipo(e.target.value)}
+                    
                 />
 
                 <div>
-                    <Button variant="contained">
+                    <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
                         Cancelar
                     </Button>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button type="submit" variant="contained" color="success" endIcon={<SendIcon />}>
                         Registrarse
                     </Button>
                 </div>
