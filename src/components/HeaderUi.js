@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import logo from '../imgs/book.png';
+import { MenuBook } from '@mui/icons-material';
 
 import { Link } from "react-router-dom"; //Para enlazar el menú con sus respectivas páginas
 import {
@@ -42,28 +43,12 @@ export function HeaderUi() {
     setAnchorElMainMenu(null);
   };
 
-  // const handleLogOut = () => {
-  //   setAnchorElMenuUser(null);
-  //   setLoggedUserJson(null);
-  //   window.localStorage.removeItem('loggedBooksAppUser');
-  // };
-
   const opcionesMenu = [
     {
       id: 1,
       title: "Libros",
       link: "/libros",
-    },
-    // {
-    //   id: 2,
-    //   title: "Comentarios",
-    //   link: "/comentarios",
-    // },
-    // {
-    //   id: 3,
-    //   title: "Autores",
-    //   link: "/autores",
-    // },
+    }
   ];
 
   const menuResponsivoOpciones = (
@@ -203,12 +188,27 @@ export function HeaderUi() {
           <Link to="/">
             <div className={styles.empresaContainer}>
               <Container sx={{ display: { xs: 'none', sm: "flex"} }} className={styles.logoHeader}>
-                <img
+                {/* <img
                   className={styles.logo}
                   // src="https://i.pinimg.com/originals/b9/12/80/b91280364e12594bea63ae99ccc2767e.png"
                   src={logo}
                   alt="Logo-flipbook"
-                />
+                /> */}                
+                <Avatar                  
+                  // variant="square"                  
+                  sx={{ 
+                    backgroundColor: "#BF7D31", 
+                    width: "55px", 
+                    height: "55px",
+                    borderStyle: "none",
+                    borderColor: "#000",
+                    borderWidth: ".1rem"
+                  }}
+
+                  alt="Logo-flipbook"
+                >
+                  <MenuBook sx={{ color: "#f0f0f0", fontSize: "30px"}} />
+                </Avatar>
               </Container>
               <Box className={styles.titulo}>flipbook</Box>
             </div>

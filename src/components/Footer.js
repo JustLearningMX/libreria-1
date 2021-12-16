@@ -36,6 +36,23 @@ export function Footer() {
             </Stack>
           </Links>
           </Box>
+
+        <h1 className={styles.h1_} style={{ marginTop: "30px" }}>Las vistas de esta aplicación web fueron creadas mediantes ReactJS.</h1>
+        <p className={styles.p_}>ReactJS es una librería que permite diseñar componentes reutilizables.</p>
+        
+        <Box sx={{ display: "flex"}}>
+          <Links 
+            className={styles.a_} 
+            href="https://github.com/BeduTeam3/libreria" 
+            target="_blank" 
+            underline="hover"
+          >
+            <Stack direction="row" alignItems="center" gap={1}>
+              <GitHub />
+              <Typography variant="h6">Repositorio</Typography>
+            </Stack>
+          </Links>
+          </Box>
       </div>
 
       <div className={styles.disclaimer}>

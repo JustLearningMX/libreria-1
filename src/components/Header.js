@@ -1,6 +1,8 @@
 //ENCABEZADO DEL SITIO: LOGO, NOMBRE DE LA EMPRESA Y MENÚ PRINCIPAL
 import styles from "../css/Header.module.css"; //Estilos para el header
 import { Link } from "react-router-dom"; //Para enlazar el menú con sus respectivas páginas
+import { Avatar } from '@mui/material';
+import { MenuBookTwoTone } from '@mui/icons-material';
 
 /** Link to:
  * "/" --> Página principal
@@ -16,10 +18,15 @@ export function Header() {
         <Link to="/">
           <div className={styles.empresaContainer}>
             <figure className={styles.logoHeader}>
-              <img
+              {/* <img
                 className={styles.logo}
                 src="https://i.pinimg.com/originals/b9/12/80/b91280364e12594bea63ae99ccc2767e.png"
                 alt="Logo-LibreríaBedu"
+              /> ****/}
+              <Avatar 
+                // sx={{ backgroundColor: stringToColor(nombre) }}
+                alt="Logo-flipbook"
+                src={<MenuBookTwoTone />}
               />
             </figure>
             <p className={styles.titulo}>Librería Bedu</p>
