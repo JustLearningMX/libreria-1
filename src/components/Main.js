@@ -4,10 +4,13 @@ import { AccountCircle } from "@mui/icons-material";
 import books from '../imgs/books.jpg';
 import ebook from '../imgs/reader-ebook.jpg';
 
+import { Carrusel } from "./Carrusel";
+
 export function Main() {  
 
   return (
     <main className={styles.main}>
+      <Carrusel/>
       <Stack spacing={2} sx={{ width: "60%"}}>
         <Box>         
           
